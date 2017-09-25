@@ -10,19 +10,6 @@
     <p>Welcome to the Chat App</p>
 
     <script src ="/socket.io/socket.io.js"></script>
-    <script>
-      var socket = io();
-
-      // When client connects to server
-      socket.on('connect', () => {
-        console.log('Conneected to server');
-      });
-
-      // When  disconncted from server
-      socket.on('disconnect', () => {
-        console.log('Disconnected from server');
-      });
-
-    </script>
+    <script src = "/js/index.js"></script>
   </body>
 </html>

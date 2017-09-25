@@ -24,7 +24,20 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('User was disconnected');
   });
-});
+
+  //emit event to client
+  socket.emit('newMessage', {
+    from: 'hareef@me.com',
+    text: 'Hello. how are you?',
+    createdAt: 123
+  });
+
+  //receive event from client
+  socket.on('createMessage', (message) => {
+    console.log('createMessage',message);
+  });
+
+}); //closing brackets for listening to new connection
 
 server.listen(port, () => {
   console.log(`Server is up on port ${port}`);
