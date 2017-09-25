@@ -25,16 +25,16 @@ io.on('connection', (socket) => {
     console.log('User was disconnected');
   });
 
-  //emit event to client
-  socket.emit('newMessage', {
-    from: 'hareef@me.com',
-    text: 'Hello. how are you?',
-    createdAt: 123
-  });
 
   //receive event from client
   socket.on('createMessage', (message) => {
     console.log('createMessage',message);
+    //Emit to all connected clients using io.emit
+    io.emit('newMessage',{
+      from: message.from,
+      text: message.text,
+      createdAt: new Date().getTime()
+    });
   });
 
 }); //closing brackets for listening to new connection

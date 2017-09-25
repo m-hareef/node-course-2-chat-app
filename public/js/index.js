@@ -5,10 +5,10 @@ socket.on('connect', function ()  {
   console.log('Conneected to server');
 
   //Emit data to server on connected
-  socket.emit('createMessage', {
-    to: 'rashdan@kgs.com',
-    text: 'This is Rashdan'
-  });
+  // socket.emit('createMessage', {
+  //   to: 'rashdan@kgs.com',
+  //   text: 'This is Rashdan'
+  // });
 
 });
 
