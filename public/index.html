@@ -10,7 +10,7 @@
 
   <body class = "chat">
     <div class = "chat__sidebar">
-      <h3>JAZEELA CHAT</h3>
+      <h3>PEOPLE</h3>
       <div id = "users">
 
       </div>
@@ -38,9 +38,38 @@
     </div>
 
 
+<!-- Using mustache template format below: For Chat messages -->
+    <script id = "message-template" type="text/template">
+      <li class = "message">
+        <div class="message__title">
+          <h4>{{from}}</h4>
+          <span>{{createdAt}}</span>
+        </div>
+        <div class = "message__body">
+          <p>{{text}}</p>
+        </div>
+      </li>
+    </script>
+
+    <!-- Using mustache template format below: For Location messages -->
+        <script id = "location-message-template" type="text/template">
+          <li class = "message">
+            <div class="message__title">
+              <h4>{{from}}</h4>
+              <span>{{createdAt}}</span>
+            </div>
+            <div class = "message__body">
+              <p>
+                <a href="{{url}}" target = "_blank">My current location</a>
+              </p>
+            </div>
+          </li>
+        </script>
+
     <script src ="/socket.io/socket.io.js"></script>
     <script src ="/js/libs/jquery-3.2.1.min.js"></script>
-     <script src = "/js/libs/moment.js"></script> <!--Moment library copied for date and time manipulation -->
+    <script src = "/js/libs/moment.js"></script> <!--Moment library copied for date and time manipulation -->
+    <script src = "/js/libs/mustache.js"></script> <!--Mustache.js library -->
     <script src = "/js/index.js"></script>
   </body>
 </html>
