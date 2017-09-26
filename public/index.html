@@ -3,19 +3,40 @@
 <html>
   <head>
 
-      <meta charset = "utf-8"
+      <meta charset = "utf-8">
+      <link rel="stylesheet" href="/css/styles.css">
+
   </head>
 
-  <body>
-    <p>Welcome to the Chat App</p>
+  <body class = "chat">
+    <div class = "chat__sidebar">
+      <h3>People</h3>
+      <div id = "users">
 
-    <ol id = "messages"> </ol>
-    <form id = "message-form">
-      <input name = "message" type = "text" placeholder = "Message"/>
-      <button>Send</button>
-    </form>
+      </div>
 
-    <button id = "send-location">Send Location</button>
+    </div>
+
+    <div class = "chat__main">
+      <ol id = "messages" class = "chat__messages"> </ol>
+
+<!-- footer -->
+      <div class = "chat__footer">
+        <form id = "message-form">
+          <input name = "message" type = "text" placeholder = "Type Here" autofocus autocomplete="off"/>
+          <button>Send</button>
+        </form>
+        <button id = "send-location">Send location</button>
+      </div>
+
+      <!-- I created the below div to do something later -->
+      <div class = "chat__footer">
+
+      </div>
+
+
+    </div>
+
 
     <script src ="/socket.io/socket.io.js"></script>
     <script src ="/js/libs/jquery-3.2.1.min.js"></script>

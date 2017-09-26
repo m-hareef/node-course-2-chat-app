@@ -33,12 +33,12 @@ io.on('connection', (socket) => {
     console.log('createMessage',message);
     // Emit to all connected clients using io.emit
     io.emit('newMessage', generateMessage(message.from, message.text));
-    callback('Ths is from the server.');
+    callback();
   });
 
   socket.on('createLocationMessage', (coords) => {
     //Emit a locationmessage will be a link to google maps using function generateLocationMessage
-    io.emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude, coords.longitude));
+    io.emit('newLocationMessage', generateLocationMessage('Admin: ', coords.latitude, coords.longitude));
   })
   //Client Disconects
   socket.on('disconnect', () => {
