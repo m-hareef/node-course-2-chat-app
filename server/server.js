@@ -21,10 +21,6 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => {
   console.log('New user connected');
 
-  //Disconects
-  socket.on('disconnect', () => {
-    console.log('User was disconnected');
-  });
 
   //Send a welcome message
   socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
@@ -33,13 +29,18 @@ io.on('connection', (socket) => {
   socket.broadcast.emit('newMessage',generateMessage('Admin', 'New user joined'));
 
   //receive event from client
-  socket.on('createMessage', (message) => {
+  socket.on('createMessage', (message, callback) => {
     console.log('createMessage',message);
     // Emit to all connected clients using io.emit
     io.emit('newMessage', generateMessage(message.from, message.text));
-
-
+    callback('Ths is from the server.');
   });
+
+  //Client Disconects
+  socket.on('disconnect', () => {
+    console.log('User was disconnected');
+  });
+
 
 }); //closing brackets for listening to new connection
 
