@@ -5,7 +5,7 @@ const http = require('http'); //built in module, used by express
 const express = require('express');
 const socketIO = require('socket.io');
 
-const {generateMessage} = require('./utils/message');
+const {generateMessage, generateLocationMessage} = require('./utils/message');
 const publicPath = path.join(__dirname, '../public');  //as public path is one folder up and then the public folder
 const port = process.env.PORT || 3000;
 
@@ -36,6 +36,10 @@ io.on('connection', (socket) => {
     callback('Ths is from the server.');
   });
 
+  socket.on('createLocationMessage', (coords) => {
+    //Emit a locationmessage will be a link to google maps using function generateLocationMessage
+    io.emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude, coords.longitude));
+  })
   //Client Disconects
   socket.on('disconnect', () => {
     console.log('User was disconnected');
