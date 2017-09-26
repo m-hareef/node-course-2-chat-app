@@ -18,9 +18,9 @@ socket.on('disconnect', function ()  {
 });
 
 socket.on('newMessage', function (message) {
-  console.log('New Message **', message);
+  var formattedTime = moment(message.createdAt).format('h:mm a'); //using the moment.js library for formatting date/time
   var li = jQuery('<li></li>');  //create a html list tag
-  li.text(`${message.from}: ${message.text}`); //fill the list with data
+  li.text(`${message.from} ${formattedTime}: ${message.text}`); //fill the list with data
 
   jQuery('#messages').append(li); //append this list to the messages ordered list OL
 });
@@ -29,9 +29,10 @@ socket.on('newMessage', function (message) {
 
 //listen to locationmessage
 socket.on('newLocationMessage', function (message) {
+  var formattedTime = moment(message.createdAt).format('h:mm a');
   var li = jQuery('<li></li>');  //create a html list tag
   var a = jQuery('<a target="_blank">My current location</a>') //target = _blank to open target link on a new tab
-  li.text(`${message.from}`); //fill the list with data
+  li.text(`${message.from} ${formattedTime}: `); //fill the list with data
   a.attr('href', message.url); //add the href attrihute to the a element
   li.append(a); //append the message.from and message.url
   jQuery('#messages').append(li); //append this list to the messages ordered list OL
