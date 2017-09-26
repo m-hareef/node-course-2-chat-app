@@ -5,6 +5,7 @@ const http = require('http'); //built in module, used by express
 const express = require('express');
 const socketIO = require('socket.io');
 
+const {generateMessage} = require('./utils/message');
 const publicPath = path.join(__dirname, '../public');  //as public path is one folder up and then the public folder
 const port = process.env.PORT || 3000;
 
@@ -25,16 +26,19 @@ io.on('connection', (socket) => {
     console.log('User was disconnected');
   });
 
+  //Send a welcome message
+  socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
+
+  //emit to all clients except sender by using socket.broadcast.emit
+  socket.broadcast.emit('newMessage',generateMessage('Admin', 'New user joined'));
 
   //receive event from client
   socket.on('createMessage', (message) => {
     console.log('createMessage',message);
-    //Emit to all connected clients using io.emit
-    io.emit('newMessage',{
-      from: message.from,
-      text: message.text,
-      createdAt: new Date().getTime()
-    });
+    // Emit to all connected clients using io.emit
+    io.emit('newMessage', generateMessage(message.from, message.text));
+
+
   });
 
 }); //closing brackets for listening to new connection
