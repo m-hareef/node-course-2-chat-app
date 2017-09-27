@@ -1,5 +1,23 @@
 var socket = io();
 
+
+//Function to Auto scroll
+function scrollToBottom ()  {
+  //Selectors
+  var messages = jQuery('#messages');
+  var newMessage = messages.children('li:last-child');  //select the last child - which is the last list the user typed
+  //Heights
+  var clientHeight = messages.prop('clientHeight');  //prop = to fetch a property
+  var scrollTop = messages.prop('scrollTop');
+  var scrollHeight = messages.prop('scrollHeight');
+  var newMessageHeight = newMessage.innerHeight(); //Height of the last message
+  var lastMessageHeight = newMessage.prev().innerHeight(); //height of the second last message
+
+  if (clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight) {
+    messages.scrollTop(scrollHeight);
+  }
+};
+
 // When client connects to server
 socket.on('connect', function ()  {
   console.log('Connected to server');
@@ -27,6 +45,7 @@ socket.on('newMessage', function (message) {
     createdAt: formattedTime
   });
   jQuery('#messages').append(html); //append this html to the messages ordered list OL
+  scrollToBottom() // call function to scrollToBottom
 
   // var formattedTime = moment(message.createdAt).format('h:mm a'); //using the moment.js library for formatting date/time
   // var li = jQuery('<li></li>');  //create a html list tag
@@ -47,7 +66,7 @@ socket.on('newLocationMessage', function (message) {
     createdAt: formattedTime
   });
   jQuery('#messages').append(html); //append this html to the messages ordered list OL
-
+  scrollToBottom() // call function to scrollToBottom
 
   // var formattedTime = moment(message.createdAt).format('h:mm a');
   // var li = jQuery('<li></li>');  //create a html list tag
